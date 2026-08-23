@@ -6,23 +6,9 @@ cp -avf "/ctx/system_files"/. /
 
 mkdir -p /usr/lib/bootc/kargs.d
 printf 'kargs = ["amdgpu.ppfeaturemask=0xffffffff"]\n' > /usr/lib/bootc/kargs.d/10-amdgpu.toml
-dnf5 -y copr enable ilyaz/LACT
-dnf5 -y install lact
-dnf5 -y copr disable ilyaz/LACT
-systemctl enable lactd
 
 dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/docker-ce.repo
-dnf -y install --enablerepo=docker-ce-stable \
-    containerd.io \
-    docker-buildx-plugin \
-    docker-ce \
-    docker-ce-cli \
-    docker-compose-plugin \
-    docker-model-plugin
-
-systemctl enable docker.service docker.socket
-systemctl enable podman.socket
 
 tee /etc/yum.repos.d/vscode.repo <<'EOF'
 [code]
@@ -33,7 +19,6 @@ gpgcheck=1
 gpgkey=https://packages.microsoft.com/keys/microsoft.asc
 EOF
 sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/vscode.repo
-dnf -y install --enablerepo=code code
 
 cat <<'EOF' > /etc/systemd/system/nix.mount
 [Unit]
@@ -48,22 +33,26 @@ Options=bind
 [Install]
 WantedBy=local-fs.target
 EOF
-dnf5 -y install busybox nix nix-daemon
-systemctl enable nix.mount
-systemctl enable nix-daemon
-
-dnf5 -y install samba wsdd
-systemctl enable smb.service
-systemctl enable nmb.service
-systemctl enable wsdd.service
-firewall-offline-cmd --add-service=samba
-firewall-offline-cmd --add-service=wsdd
 
 dnf5 -y remove \
     lutris \
     waydroid
 
-dnf5 -y install \
+dnf5 -y copr enable ilyaz/LACT
+dnf5 -y copr enable avengemedia/danklinux
+dnf5 -y copr enable ulysg/xwayland-satellite
+
+dnf5 -y install --enablerepo=docker-ce-stable,code \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-ce \
+    docker-ce-cli \
+    docker-compose-plugin \
+    docker-model-plugin \
+    code \
+    lact \
+    busybox nix nix-daemon \
+    samba wsdd \
     alsa-plugins-a52.x86_64 \
     fastfetch \
     fuse-sshfs \
@@ -77,11 +66,7 @@ dnf5 -y install \
     stow \
     unzip \
     usbutils \
-    zip
-
-dnf5 -y copr enable avengemedia/danklinux
-dnf5 -y copr enable ulysg/xwayland-satellite
-dnf5 -y install \
+    zip \
     blueman \
     dms \
     dms-greeter \
@@ -97,17 +82,23 @@ dnf5 -y install \
     xdg-desktop-portal \
     xdg-desktop-portal-gnome \
     xdg-desktop-portal-gtk \
-    xwayland-satellite
-dnf5 -y copr disable avengemedia/danklinux
-dnf5 -y copr disable ulysg/xwayland-satellite
-
-dnf5 -y install \
+    xwayland-satellite \
     ark \
     dolphin \
     kde-partitionmanager \
     kio-extras \
     mpv \
     qimgv
+
+dnf5 -y copr disable ilyaz/LACT
+dnf5 -y copr disable avengemedia/danklinux
+dnf5 -y copr disable ulysg/xwayland-satellite
+
+systemctl enable docker.service docker.socket podman.socket
+systemctl enable lactd
+systemctl enable nix.mount nix-daemon
+systemctl enable smb.service nmb.service wsdd.service
+firewall-offline-cmd --add-service=samba --add-service=wsdd
 
 systemctl disable gdm.service
 systemctl mask gdm.service
