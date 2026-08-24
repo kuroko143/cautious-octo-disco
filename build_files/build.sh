@@ -52,13 +52,15 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     docker-model-plugin \
     code \
     lact \
-    busybox nix nix-daemon \
-    samba wsdd \
+    busybox \
+    nix \
+    nix-daemon \
+    samba \
+    wsdd \
     alsa-plugins-a52.x86_64 \
     fastfetch \
     fuse-sshfs \
     i2c-tools \
-    liquidctl \
     lm_sensors \
     openrgb-udev-rules \
     p7zip \
@@ -81,10 +83,8 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     kvantum \
     niri \
     pavucontrol \
-    playerctl \
     qt6-qtmultimedia \
     qt6ct \
-    swaylock \
     xdg-desktop-portal \
     xdg-desktop-portal-gnome \
     xdg-desktop-portal-gtk \
