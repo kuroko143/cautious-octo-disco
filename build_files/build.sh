@@ -84,6 +84,7 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     kvantum \
     niri \
     pavucontrol \
+    playerctl \
     qt6-qtmultimedia \
     qt6ct \
     xdg-desktop-portal \
