@@ -60,6 +60,7 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     fastfetch \
     fuse-sshfs \
     i2c-tools \
+    liquidctl \
     lm_sensors \
     openrgb-udev-rules \
     p7zip \
