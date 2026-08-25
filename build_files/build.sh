@@ -29,6 +29,7 @@ dnf5 -y remove \
     waydroid
 
 dnf5 -y copr enable ilyaz/LACT
+dnf5 -y copr enable atim/starship
 dnf5 -y copr enable avengemedia/danklinux
 dnf5 -y copr enable ulysg/xwayland-satellite
 
@@ -58,7 +59,11 @@ dnf5 -y install --enablerepo=docker-ce-stable \
     unzip \
     usbutils \
     zip \
+    atuin \
+    eza \
     kitty \
+    neovim \
+    starship \
     blueman \
     dms \
     dms-greeter \
@@ -68,6 +73,7 @@ dnf5 -y install --enablerepo=docker-ce-stable \
     kvantum \
     niri \
     pavucontrol \
+    playerctl \
     qt6-qtmultimedia \
     qt6ct \
     xdg-desktop-portal \
@@ -78,9 +84,11 @@ dnf5 -y install --enablerepo=docker-ce-stable \
     dolphin \
     kde-partitionmanager \
     kio-extras \
-    mpv
+    mpv \
+    qimgv
 
 dnf5 -y copr disable ilyaz/LACT
+dnf5 -y copr disable atim/starship
 dnf5 -y copr disable avengemedia/danklinux
 dnf5 -y copr disable ulysg/xwayland-satellite
 
