@@ -89,7 +89,8 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     dolphin \
     kde-partitionmanager \
     kio-extras \
-    mpv
+    mpv \
+    qimgv
 
 dnf5 -y copr disable ilyaz/LACT
 dnf5 -y copr disable avengemedia/danklinux
