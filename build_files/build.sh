@@ -39,6 +39,7 @@ dnf5 -y remove \
     waydroid
 
 dnf5 -y copr enable ilyaz/LACT
+dnf5 -y copr enable atim/starship
 dnf5 -y copr enable avengemedia/danklinux
 dnf5 -y copr enable ulysg/xwayland-satellite
 
@@ -69,8 +70,11 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     unzip \
     usbutils \
     zip \
+    atuin \
+    eza \
     kitty \
     neovim \
+    starship \
     blueman \
     dms \
     dms-greeter \
@@ -94,6 +98,7 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     qimgv
 
 dnf5 -y copr disable ilyaz/LACT
+dnf5 -y copr disable atim/starship
 dnf5 -y copr disable avengemedia/danklinux
 dnf5 -y copr disable ulysg/xwayland-satellite
 
