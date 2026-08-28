@@ -10,6 +10,16 @@ printf 'kargs = ["amdgpu.ppfeaturemask=0xffffffff"]\n' > /usr/lib/bootc/kargs.d/
 dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/docker-ce.repo
 
+tee /etc/yum.repos.d/vscode.repo <<'EOF'
+[code]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+EOF
+sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/vscode.repo
+
 cat <<'EOF' > /etc/systemd/system/nix.mount
 [Unit]
 Description=Bind mount /var/nix to /nix
@@ -33,13 +43,14 @@ dnf5 -y copr enable atim/starship
 dnf5 -y copr enable avengemedia/danklinux
 dnf5 -y copr enable ulysg/xwayland-satellite
 
-dnf5 -y install --enablerepo=docker-ce-stable \
+dnf5 -y install --enablerepo=docker-ce-stable,code \
     containerd.io \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
     docker-model-plugin \
+    code \
     lact \
     busybox \
     nix \
