@@ -34,9 +34,7 @@ Options=bind
 WantedBy=local-fs.target
 EOF
 
-dnf5 -y remove \
-    lutris \
-    waydroid
+# dnf5 -y remove lutris waydroid
 
 dnf5 -y copr enable ilyaz/LACT
 dnf5 -y copr enable atim/starship
