@@ -53,8 +53,6 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     busybox \
     nix \
     nix-daemon \
-    samba \
-    wsdd \
     alsa-plugins-a52.x86_64 \
     fastfetch \
     fuse-sshfs \
@@ -104,8 +102,7 @@ dnf5 -y copr disable ulysg/xwayland-satellite
 systemctl enable docker.service docker.socket podman.socket
 systemctl enable lactd
 systemctl enable nix.mount nix-daemon
-systemctl enable smb.service nmb.service wsdd.service
-firewall-offline-cmd --add-service=samba --add-service=wsdd
+firewall-offline-cmd --add-service=samba
 
 systemctl disable gdm.service
 systemctl mask gdm.service
