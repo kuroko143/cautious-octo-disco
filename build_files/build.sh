@@ -40,7 +40,6 @@ dnf5 -y copr enable ilyaz/LACT
 dnf5 -y copr enable atim/starship
 dnf5 -y copr enable avengemedia/dms
 dnf5 -y copr enable avengemedia/danklinux
-dnf5 -y copr enable ulysg/xwayland-satellite
 
 dnf5 -y install --enablerepo=docker-ce-stable,code \
     containerd.io \
@@ -87,6 +86,7 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     xdg-desktop-portal \
     xdg-desktop-portal-gnome \
     xdg-desktop-portal-gtk \
+    https://kojipkgs.fedoraproject.org//packages/xwayland-satellite/0.8.1/1.fc44/x86_64/xwayland-satellite-0.8.1-1.fc44.x86_64.rpm \
     ark \
     dolphin \
     kde-partitionmanager \
@@ -98,15 +98,6 @@ dnf5 -y copr disable ilyaz/LACT
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable avengemedia/dms
 dnf5 -y copr disable avengemedia/danklinux
-dnf5 -y copr disable ulysg/xwayland-satellite
-
-# Compile xwayland-satellite v0.8.1 from source
-cargo install --git https://github.com/Supreeeme/xwayland-satellite --tag v0.8.1 --root /usr/local
-mv /usr/local/bin/xwayland-satellite /usr/bin/xwayland-satellite
-
-# Clean up build dependencies to reduce image size
-dnf5 -y remove cargo rust clang-devel xcb-util-cursor-devel xcb-util-wm-devel
-rm -rf /root/.cargo /root/.rustup /usr/local/bin/xwayland-satellite
 
 systemctl enable docker.service docker.socket podman.socket
 systemctl enable lactd
