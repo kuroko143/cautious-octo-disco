@@ -92,8 +92,7 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     kde-partitionmanager \
     kio-extras \
     mpv \
-    qimgv \
-    lsfg-vk
+    qimgv
 
 dnf5 -y copr disable ilyaz/LACT
 dnf5 -y copr disable atim/starship
