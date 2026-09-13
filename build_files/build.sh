@@ -93,7 +93,8 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     kio-extras \
     mpv \
     qimgv \
-    lsfg-vk
+    qt6-qtdeclarative \
+    qt6-qtbase
 
 dnf5 -y copr disable ilyaz/LACT
 dnf5 -y copr disable atim/starship
