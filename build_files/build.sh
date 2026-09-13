@@ -34,8 +34,6 @@ Options=bind
 WantedBy=local-fs.target
 EOF
 
-# dnf5 -y remove lutris waydroid
-
 dnf5 -y copr enable ilyaz/LACT
 dnf5 -y copr enable atim/starship
 dnf5 -y copr enable avengemedia/dms
@@ -84,7 +82,6 @@ dnf5 -y install --enablerepo=docker-ce-stable,code \
     qt6-qtmultimedia \
     qt6ct \
     xdg-desktop-portal \
-    xdg-desktop-portal-gnome \
     xdg-desktop-portal-gtk \
     https://kojipkgs.fedoraproject.org//packages/xwayland-satellite/0.8.1/1.fc44/x86_64/xwayland-satellite-0.8.1-1.fc44.x86_64.rpm \
     ark \
@@ -104,6 +101,6 @@ systemctl enable lactd
 systemctl enable nix.mount nix-daemon
 firewall-offline-cmd --add-service=samba
 
-systemctl disable gdm.service
-systemctl mask gdm.service
+#systemctl disable gdm.service
+#systemctl mask gdm.service
 systemctl enable greetd.service
