@@ -34,6 +34,19 @@ Options=bind
 WantedBy=local-fs.target
 EOF
 
+cat <<'EOF' > /etc/systemd/system/disable-wakeup.service
+[Unit]
+Description=Disable USB ACPI wakeup triggers
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "for dev in XHC0 PTXH; do if grep -q \"$dev.*enabled\" /proc/acpi/wakeup; then echo $dev > /proc/acpi/wakeup; fi; done"
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 # dnf5 -y remove lutris waydroid
 
 dnf5 -y copr enable ilyaz/LACT
@@ -102,6 +115,7 @@ dnf5 -y copr disable avengemedia/danklinux
 systemctl enable docker.service docker.socket podman.socket
 systemctl enable lactd
 systemctl enable nix.mount nix-daemon
+systemctl enable disable-wakeup.service
 firewall-offline-cmd --add-service=samba
 
 systemctl disable gdm.service
