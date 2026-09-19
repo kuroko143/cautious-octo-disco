@@ -9,12 +9,18 @@ printf 'kargs = ["amdgpu.ppfeaturemask=0xffffffff"]\n' > /usr/lib/bootc/kargs.d/
 printf 'kargs = ["bluetooth.disable_lpm=1"]\n' > /usr/lib/bootc/kargs.d/20-bluetooth.toml
 
 mkdir -p /etc/bluetooth
-tee -a /etc/bluetooth/main.conf <<'EOF'
+if [ -f /etc/bluetooth/main.conf ]; then
+    sed -i 's/^#\?JustWorksRepairing.*/JustWorksRepairing = always/' /etc/bluetooth/main.conf
+    sed -i 's/^#\?FastConnectable.*/FastConnectable = true/' /etc/bluetooth/main.conf
+    sed -i 's/^#\?ControllerMode.*/ControllerMode = dual/' /etc/bluetooth/main.conf
+else
+    cat <<'EOF' > /etc/bluetooth/main.conf
 [General]
 JustWorksRepairing = always
-ControllerMode = bredr
+ControllerMode = dual
 FastConnectable = true
 EOF
+fi
 
 dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/docker-ce.repo
