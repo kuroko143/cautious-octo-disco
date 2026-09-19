@@ -6,6 +6,15 @@ cp -avf "/ctx/system_files"/. /
 
 mkdir -p /usr/lib/bootc/kargs.d
 printf 'kargs = ["amdgpu.ppfeaturemask=0xffffffff"]\n' > /usr/lib/bootc/kargs.d/10-amdgpu.toml
+printf 'kargs = ["bluetooth.disable_lpm=1"]\n' > /usr/lib/bootc/kargs.d/20-bluetooth.toml
+
+mkdir -p /etc/bluetooth
+tee -a /etc/bluetooth/main.conf <<'EOF'
+[General]
+JustWorksRepairing = always
+ControllerMode = bredr
+FastConnectable = true
+EOF
 
 dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/docker-ce.repo
